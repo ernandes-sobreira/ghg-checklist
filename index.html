@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Los Gatos — Field Checklist (PT/EN)</title>
+  <meta name="theme-color" content="#0b1020"/>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#101a33;
+      --card2:#0d1630;
+      --text:#f8fafc;
+      --muted:#b6c2d1;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --info:#60a5fa;
+
+      --pill:#0f1d3d;
+      --accent:#7c3aed;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1100px 700px at 15% -10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(1100px 700px at 110% 20%, rgba(96,165,250,.25), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(34,197,94,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:22px}
+    header{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:18px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      position:sticky; top:12px; z-index:10; backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center; min-width:260px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(96,165,250,.85));
+      box-shadow: 0 10px 30px rgba(124,58,237,.25);
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.16);
+      flex:0 0 auto;
+    }
+    .logo svg{opacity:.95}
+    .titles{line-height:1.08}
+    .titles h1{font-size:16px;margin:0 0 4px 0;letter-spacing:.2px}
+    .titles p{margin:0;color:var(--muted);font-size:12px}
+    .top-actions{
+      display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      display:inline-flex; gap:8px; align-items:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      transition:.15s transform, .15s background;
+      font-weight:650;
+      letter-spacing:.1px;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.08)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      border-color: rgba(124,58,237,.45);
+      background: rgba(124,58,237,.22);
+    }
+    .btn.danger{
+      border-color: rgba(239,68,68,.45);
+      background: rgba(239,68,68,.16);
+    }
+    .seg{
+      display:flex; align-items:center; gap:8px;
+      padding:6px; border-radius:14px; border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .seg button{
+      border:0; background:transparent; color:var(--muted);
+      padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:750;
+    }
+    .seg button.active{background: rgba(96,165,250,.18); color:var(--text); border:1px solid rgba(96,165,250,.28)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      header{position:relative; top:auto}
+      .brand{min-width:auto}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background: rgba(0,0,0,.12);
+      border-bottom:1px solid var(--line);
+    }
+    .card .hd h2{
+      margin:0; font-size:14px; letter-spacing:.2px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .pill{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--pill);
+      white-space:nowrap;
+    }
+    .card .bd{padding:14px 16px}
+    .kpis{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+    }
+    .kpi .t{color:var(--muted);font-size:12px;margin-bottom:6px}
+    .kpi .v{font-size:22px;font-weight:900;letter-spacing:.2px}
+    .bar{
+      margin-top:10px;
+      height:12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+    .bar > div{
+      height:100%; width:0%;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(239,68,68,.9), rgba(245,158,11,.9), rgba(34,197,94,.9));
+      transition: width .25s ease;
+    }
+    .legend{
+      margin-top:10px;
+      display:flex; gap:8px; flex-wrap:wrap;
+      color:var(--muted); font-size:12px;
+    }
+    .tag{
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .dot{width:10px;height:10px;border-radius:999px}
+    .dot.ok{background:var(--ok)}
+    .dot.warn{background:var(--warn)}
+    .dot.bad{background:var(--bad)}
+    .dot.info{background:var(--info)}
+    .section{
+      margin-top:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .section .shd{
+      padding:12px 12px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background: rgba(0,0,0,.10);
+      border-bottom:1px solid var(--line);
+    }
+    .section .shd h3{margin:0;font-size:13px}
+    .section .sbd{padding:10px 12px}
+    .row{
+      display:flex; gap:10px; align-items:center;
+      padding:10px 10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(0,0,0,.12);
+      margin-bottom:10px;
+    }
+    .row:last-child{margin-bottom:0}
+    .row input[type="checkbox"]{width:18px;height:18px; accent-color: #60a5fa;}
+    .itemtext{flex:1; min-width:0}
+    .itemtext .name{font-weight:800; font-size:13px}
+    .itemtext .desc{color:var(--muted); font-size:12px; margin-top:2px}
+    .actions{
+      display:flex; gap:8px; align-items:center; flex:0 0 auto;
+    }
+    .iconbtn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      padding:8px 9px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+    .iconbtn:hover{background: rgba(255,255,255,.07)}
+    .form{
+      display:grid; gap:10px;
+    }
+    .form .grid2{
+      display:grid; grid-template-columns: 1fr 1fr; gap:10px;
+    }
+    @media (max-width:620px){
+      .form .grid2{grid-template-columns:1fr}
+    }
+    label{font-size:12px;color:var(--muted);display:block;margin:0 0 6px}
+    input[type="text"], textarea, select{
+      width:100%;
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:14px;
+      padding:10px 12px;
+      outline:none;
+    }
+    textarea{min-height:86px; resize:vertical}
+    .note{
+      border:1px solid rgba(96,165,250,.25);
+      background: rgba(96,165,250,.10);
+      border-radius:16px;
+      padding:12px;
+      color: var(--text);
+    }
+    .note b{color:#eaf2ff}
+    .warnbox{
+      border:1px solid rgba(245,158,11,.35);
+      background: rgba(245,158,11,.10);
+      border-radius:16px;
+      padding:12px;
+    }
+    .dangerbox{
+      border:1px solid rgba(239,68,68,.35);
+      background: rgba(239,68,68,.10);
+      border-radius:16px;
+      padding:12px;
+    }
+    .muted{color:var(--muted)}
+    .foot{
+      margin:18px 0 6px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
+    dialog{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(10,16,32,.92);
+      color:var(--text);
+      box-shadow: var(--shadow);
+      width:min(720px, calc(100% - 24px));
+    }
+    dialog::backdrop{background: rgba(0,0,0,.55)}
+    .dlg-hd{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; border-bottom:1px solid var(--line)}
+    .dlg-bd{padding:12px 14px}
+    .dlg-actions{display:flex; gap:10px; justify-content:flex-end; padding:12px 14px; border-top:1px solid var(--line)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" stroke="white" stroke-width="1.6" opacity=".9"/>
+          </svg>
+        </div>
+        <div class="titles">
+          <h1 data-i18n="appTitle">Los Gatos — Checklist de Campo</h1>
+          <p data-i18n="appSubtitle">PT/EN • editável • pontuação de qualidade • pronto para GitHub Pages</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="seg" role="group" aria-label="Language">
+          <button id="btnPT" class="active" type="button">PT</button>
+          <button id="btnEN" type="button">EN</button>
+        </div>
+
+        <button class="btn" id="btnExport" type="button" title="Export JSON">
+          <span>⤓</span><span data-i18n="export">Exportar</span>
+        </button>
+        <button class="btn" id="btnImport" type="button" title="Import JSON">
+          <span>⤒</span><span data-i18n="import">Importar</span>
+        </button>
+        <button class="btn danger" id="btnReset" type="button">
+          <span>↺</span><span data-i18n="reset">Resetar</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: Checklist -->
+      <section class="card">
+        <div class="hd">
+          <h2>✅ <span data-i18n="checklist">Checklist</span></h2>
+          <span class="pill" id="countPill">0/0</span>
+        </div>
+        <div class="bd">
+          <div class="kpis">
+            <div class="kpi">
+              <div class="t" data-i18n="qualityScore">Pontuação de Qualidade</div>
+              <div class="v" id="score">0%</div>
+              <div class="bar" aria-label="score bar"><div id="barFill"></div></div>
+              <div class="legend">
+                <span class="tag"><span class="dot ok"></span> <span data-i18n="excellent">95–100% Excelente</span></span>
+                <span class="tag"><span class="dot warn"></span> <span data-i18n="good">85–94% Boa</span></span>
+                <span class="tag"><span class="dot info"></span> <span data-i18n="attention">70–84% Atenção</span></span>
+                <span class="tag"><span class="dot bad"></span> <span data-i18n="repeat">&lt;70% Repetir</span></span>
+              </div>
+            </div>
+
+            <div class="kpi">
+              <div class="t" data-i18n="campaignInfo">Informações da Campanha</div>
+              <div style="display:grid;gap:10px;margin-top:8px">
+                <div>
+                  <label data-i18n="project">Projeto</label>
+                  <input id="project" type="text" placeholder="Ex: Pantanal CO₂ / Field Campaign">
+                </div>
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="operator">Operador(a)</label>
+                    <input id="operator" type="text" placeholder="Nome">
+                  </div>
+                  <div>
+                    <label data-i18n="site">Local</label>
+                    <input id="site" type="text" placeholder="Ex: Cáceres / Nijmegen">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section" style="margin-top:14px">
+            <div class="shd">
+              <h3>➕ <span data-i18n="addItem">Adicionar item</span></h3>
+              <span class="pill" data-i18n="editable">editável</span>
+            </div>
+            <div class="sbd">
+              <div class="form">
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="itemTitle">Título (PT)</label>
+                    <input id="newTitlePT" type="text" placeholder="Ex: Usar sempre deitado (Tiger ↑)">
+                  </div>
+                  <div>
+                    <label data-i18n="itemTitleEN">Title (EN)</label>
+                    <input id="newTitleEN" type="text" placeholder="Ex: Always horizontal (Tiger ↑)">
+                  </div>
+                </div>
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="itemDescPT">Descrição (PT)</label>
+                    <input id="newDescPT" type="text" placeholder="Curto e direto. Ex: Nunca em pé. Símbolo para cima.">
+                  </div>
+                  <div>
+                    <label data-i18n="itemDescEN">Description (EN)</label>
+                    <input id="newDescEN" type="text" placeholder="Short and clear. Ex: Never vertical. Symbol up.">
+                  </div>
+                </div>
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="category">Categoria</label>
+                    <select id="newCat">
+                      <option value="prep" data-i18n="catPrep">Preparação</option>
+                      <option value="setup" data-i18n="catSetup">Instalação</option>
+                      <option value="tubes" data-i18n="catTubes">Tubos & Conexões</option>
+                      <option value="power" data-i18n="catPower">Energia</option>
+                      <option value="climate" data-i18n="catClimate">Clima</option>
+                      <option value="operation" data-i18n="catOperation">Operação</option>
+                      <option value="shutdown" data-i18n="catShutdown">Finalização</option>
+                      <option value="emergency" data-i18n="catEmergency">Emergência</option>
+                    </select>
+                  </div>
+                  <div style="display:flex;align-items:flex-end;justify-content:flex-end">
+                    <button class="btn primary" id="btnAdd" type="button">➕ <span data-i18n="add">Adicionar</span></button>
+                  </div>
+                </div>
+              </div>
+              <p class="muted" style="margin:10px 0 0" data-i18n="addHint">
+                Dica: você pode editar e excluir qualquer item. Tudo fica salvo no seu navegador (localStorage).
+              </p>
+            </div>
+          </div>
+
+          <div id="sections"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Device + Safety notes -->
+      <aside class="card">
+        <div class="hd">
+          <h2>🧰 <span data-i18n="deviceSafety">Aparelho & Segurança</span></h2>
+          <span class="pill" data-i18n="fieldReady">field-ready</span>
+        </div>
+        <div class="bd">
+
+          <div class="note">
+            <b data-i18n="goldenRulesTitle">Regras de Ouro</b>
+            <ul style="margin:10px 0 0 18px; padding:0; color:var(--text); line-height:1.45">
+              <li data-i18n="gr1">Sempre usar o analisador <b>deitado</b> e com o símbolo (Tiger) <b>para cima</b>.</li>
+              <li data-i18n="gr2">Nunca usar no <b>sol direto</b>. Sempre <b>na sombra</b> (guarda-sol) e com <b>ventilação</b>.</li>
+              <li data-i18n="gr3">Sempre usar <b>isopor/foam</b> para reduzir vibração/trepidação.</li>
+              <li data-i18n="gr4">Nunca deixar <b>entrar água</b>, nem condensação. Nunca deixar <b>entrar poeira</b>.</li>
+              <li data-i18n="gr5">Antes de ligar, deixe os tubos em local seguro: <b>a bomba suga tudo</b>. Melhor acoplar na câmara <b>antes</b> de ligar.</li>
+              <li data-i18n="gr6">Nunca cortar ou encurtar tubos. Meça e registre o comprimento.</li>
+              <li data-i18n="gr7">Cabos especiais do inlet/outlet: manusear com extremo cuidado (sem spare parts).</li>
+            </ul>
+          </div>
+
+          <div class="section" style="margin-top:12px">
+            <div class="shd">
+              <h3>📟 <span data-i18n="deviceInfo">Informações do aparelho</span></h3>
+              <span class="pill mono" data-i18n="fillIn">preencher</span>
+            </div>
+            <div class="sbd">
+              <div class="form">
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="model">Modelo</label>
+                    <input id="model" type="text" placeholder="Ex: Los Gatos / ABB / Tiger (se aplicável)">
+                  </div>
+                  <div>
+                    <label data-i18n="serial">Série</label>
+                    <input id="serial" type="text" placeholder="Ex: XXXXXXX">
+                  </div>
+                </div>
+                <div class="grid2">
+                  <div>
+                    <label data-i18n="ip">IP</label>
+                    <input id="ip" type="text" placeholder="Ex: 192.168.8.168">
+                  </div>
+                  <div>
+                    <label data-i18n="firmware">Firmware</label>
+                    <input id="firmware" type="text" placeholder="Ex: vX.Y.Z">
+                  </div>
+                </div>
+              </div>
+              <p class="muted" style="margin:10px 0 0" data-i18n="deviceHint">
+                Essas informações ajudam a rastrear problemas e padronizar campanhas.
+              </p>
+            </div>
+          </div>
+
+          <div class="warnbox" style="margin-top:12px">
+            <b data-i18n="tubesTitle">Tubos: INLET vs OUTLET (crítico)</b>
+            <ul style="margin:10px 0 0 18px; padding:0; line-height:1.45">
+              <li data-i18n="tubes1">Identifique claramente qual tubo é <b>INLET</b> e qual é <b>OUTLET</b> (etiquetas/cores).</li>
+              <li data-i18n="tubes2">Nunca permitir retorno de água/condensação para o inlet. Use armadilhas/posicionamento seguro e sempre mantenha o inlet protegido.</li>
+              <li data-i18n="tubes3">As pontas dos tubos devem estar <b>bem definidas e retas</b> (sem rebarba), com encaixe perfeito para evitar vazamentos/entrada de ar.</li>
+              <li data-i18n="tubes4">Nunca deixar as pontas no chão/poeira. Proteja com tampas quando não estiver usando.</li>
+            </ul>
+          </div>
+
+          <div class="dangerbox" style="margin-top:12px">
+            <b data-i18n="powerTitle">Energia & Fusíveis (inversor / analisador)</b>
+            <ul style="margin:10px 0 0 18px; padding:0; line-height:1.45">
+              <li data-i18n="power1">Vermelho = <b>positivo (+)</b> | Preto = <b>negativo (–)</b>.</li>
+              <li data-i18n="power2">Ao desconectar: retirar <b>primeiro o preto</b> (negativo), depois o vermelho.</li>
+              <li data-i18n="power3">Se algo falhar no inversor, pode ser necessário <b>trocar fusível</b> do inversor.</li>
+              <li data-i18n="power4">Se o Los Gatos não ligar, pode haver necessidade de <b>trocar fusível</b> do próprio equipamento (procedimento padrão/assistência).</li>
+              <li data-i18n="power5">Não puxar/tirar o <b>plugue do carregador externo</b> de forma brusca. Evite folgas, tração e mau contato.</li>
+            </ul>
+          </div>
+
+          <div class="section" style="margin-top:12px">
+            <div class="shd">
+              <h3>🌡️ <span data-i18n="climateTitle">Clima extremo (tropical/temperado)</span></h3>
+              <span class="pill" data-i18n="monitorAlways">monitorar sempre</span>
+            </div>
+            <div class="sbd">
+              <ul style="margin:0 0 0 18px; padding:0; line-height:1.5">
+                <li data-i18n="cl1">Calor intenso: sombra + ventilação + evitar superaquecimento (overheating).</li>
+                <li data-i18n="cl2">Frio intenso: evitar condensação interna, proteger conexões e manter tubos secos.</li>
+                <li data-i18n="cl3">Umidade: ideal <b>&lt; 30.000</b>; 40k–50k risco; <b>&gt; 50k não medir</b>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="foot" data-i18n="footer">
+            Feito para uso em campo • Salva no navegador • Exporta/Importa JSON • Ideal para GitHub Pages
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <p class="foot">© <span id="year"></span> • Los Gatos Field Checklist</p>
+  </div>
+
+  <!-- Dialog: Edit item -->
+  <dialog id="dlgEdit">
+    <div class="dlg-hd">
+      <div style="font-weight:900" data-i18n="editItem">Editar item</div>
+      <button class="iconbtn" id="btnCloseEdit" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="dlg-bd">
+      <div class="form">
+        <div class="grid2">
+          <div>
+            <label data-i18n="itemTitle">Título (PT)</label>
+            <input id="editTitlePT" type="text">
+          </div>
+          <div>
+            <label data-i18n="itemTitleEN">Title (EN)</label>
+            <input id="editTitleEN" type="text">
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <label data-i18n="itemDescPT">Descrição (PT)</label>
+            <input id="editDescPT" type="text">
+          </div>
+          <div>
+            <label data-i18n="itemDescEN">Description (EN)</label>
+            <input id="editDescEN" type="text">
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <label data-i18n="category">Categoria</label>
+            <select id="editCat">
+              <option value="prep" data-i18n="catPrep">Preparação</option>
+              <option value="setup" data-i18n="catSetup">Instalação</option>
+              <option value="tubes" data-i18n="catTubes">Tubos & Conexões</option>
+              <option value="power" data-i18n="catPower">Energia</option>
+              <option value="climate" data-i18n="catClimate">Clima</option>
+              <option value="operation" data-i18n="catOperation">Operação</option>
+              <option value="shutdown" data-i18n="catShutdown">Finalização</option>
+              <option value="emergency" data-i18n="catEmergency">Emergência</option>
+            </select>
+          </div>
+          <div>
+            <label data-i18n="checked">Marcado</label>
+            <select id="editChecked">
+              <option value="false" data-i18n="no">Não</option>
+              <option value="true" data-i18n="yes">Sim</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn" id="btnCancelEdit" type="button" data-i18n="cancel">Cancelar</button>
+      <button class="btn primary" id="btnSaveEdit" type="button" data-i18n="save">Salvar</button>
+    </div>
+  </dialog>
+
+  <!-- Hidden file input for import -->
+  <input id="fileImport" type="file" accept="application/json" hidden />
+
+  <script>
+    // ---------------------------
+    // i18n
+    // ---------------------------
+    const I18N = {
+      pt: {
+        appTitle: "Los Gatos — Checklist de Campo",
+        appSubtitle: "PT/EN • editável • pontuação de qualidade • pronto para GitHub Pages",
+        export: "Exportar",
+        import: "Importar",
+        reset: "Resetar",
+        checklist: "Checklist",
+        qualityScore: "Pontuação de Qualidade",
+        excellent: "95–100% Excelente",
+        good: "85–94% Boa",
+        attention: "70–84% Atenção",
+        repeat: "<70% Repetir",
+        campaignInfo: "Informações da Campanha",
+        project: "Projeto",
+        operator: "Operador(a)",
+        site: "Local",
+        addItem: "Adicionar item",
+        editable: "editável",
+        itemTitle: "Título (PT)",
+        itemTitleEN: "Title (EN)",
+        itemDescPT: "Descrição (PT)",
+        itemDescEN: "Description (EN)",
+        category: "Categoria",
+        add: "Adicionar",
+        addHint: "Dica: você pode editar e excluir qualquer item. Tudo fica salvo no seu navegador (localStorage).",
+        deviceSafety: "Aparelho & Segurança",
+        fieldReady: "field-ready",
+        goldenRulesTitle: "Regras de Ouro",
+        gr1: "Sempre usar o analisador deitado e com o símbolo (Tiger) para cima.",
+        gr2: "Nunca usar no sol direto. Sempre na sombra (guarda-sol) e com ventilação.",
+        gr3: "Sempre usar isopor/foam para reduzir vibração/trepidação.",
+        gr4: "Nunca deixar entrar água, nem condensação. Nunca deixar entrar poeira.",
+        gr5: "Antes de ligar, deixe os tubos em local seguro: a bomba suga tudo. Melhor acoplar na câmara antes de ligar.",
+        gr6: "Nunca cortar ou encurtar tubos. Meça e registre o comprimento.",
+        gr7: "Cabos especiais do inlet/outlet: manusear com extremo cuidado (sem spare parts).",
+        deviceInfo: "Informações do aparelho",
+        fillIn: "preencher",
+        model: "Modelo",
+        serial: "Série",
+        ip: "IP",
+        firmware: "Firmware",
+        deviceHint: "Essas informações ajudam a rastrear problemas e padronizar campanhas.",
+        tubesTitle: "Tubos: INLET vs OUTLET (crítico)",
+        tubes1: "Identifique claramente qual tubo é INLET e qual é OUTLET (etiquetas/cores).",
+        tubes2: "Nunca permitir retorno de água/condensação para o inlet. Use armadilhas/posicionamento seguro e sempre mantenha o inlet protegido.",
+        tubes3: "As pontas dos tubos devem estar bem definidas e retas (sem rebarba), com encaixe perfeito para evitar vazamentos/entrada de ar.",
+        tubes4: "Nunca deixar as pontas no chão/poeira. Proteja com tampas quando não estiver usando.",
+        powerTitle: "Energia & Fusíveis (inversor / analisador)",
+        power1: "Vermelho = positivo (+) | Preto = negativo (–).",
+        power2: "Ao desconectar: retirar primeiro o preto (negativo), depois o vermelho.",
+        power3: "Se algo falhar no inversor, pode ser necessário trocar fusível do inversor.",
+        power4: "Se o Los Gatos não ligar, pode haver necessidade de trocar fusível do próprio equipamento (procedimento padrão/assistência).",
+        power5: "Não puxar/tirar o plugue do carregador externo de forma brusca. Evite folgas, tração e mau contato.",
+        climateTitle: "Clima extremo (tropical/temperado)",
+        monitorAlways: "monitorar sempre",
+        cl1: "Calor intenso: sombra + ventilação + evitar superaquecimento (overheating).",
+        cl2: "Frio intenso: evitar condensação interna, proteger conexões e manter tubos secos.",
+        cl3: "Umidade: ideal < 30.000; 40k–50k risco; > 50k não medir.",
+        footer: "Feito para uso em campo • Salva no navegador • Exporta/Importa JSON • Ideal para GitHub Pages",
+        editItem: "Editar item",
+        checked: "Marcado",
+        yes: "Sim",
+        no: "Não",
+        cancel: "Cancelar",
+        save: "Salvar",
+        catPrep: "Preparação",
+        catSetup: "Instalação",
+        catTubes: "Tubos & Conexões",
+        catPower: "Energia",
+        catClimate: "Clima",
+        catOperation: "Operação",
+        catShutdown: "Finalização",
+        catEmergency: "Emergência",
+        secTitles: {
+          prep: "1) Preparação — Before Leaving",
+          setup: "2) Instalação — Setup",
+          tubes: "3) Tubos & Conexões — Tubes",
+          power: "4) Energia — Power",
+          climate: "5) Clima — Climate",
+          operation: "6) Operação — During",
+          shutdown: "7) Finalização — Shutdown",
+          emergency: "8) Emergência — Emergency"
+        }
+      },
+      en: {
+        appTitle: "Los Gatos — Field Checklist",
+        appSubtitle: "PT/EN • editable • quality score • GitHub-ready",
+        export: "Export",
+        import: "Import",
+        reset: "Reset",
+        checklist: "Checklist",
+        qualityScore: "Quality Score",
+        excellent: "95–100% Excellent",
+        good: "85–94% Good",
+        attention: "70–84% Attention",
+        repeat: "<70% Repeat",
+        campaignInfo: "Campaign Info",
+        project: "Project",
+        operator: "Operator",
+        site: "Site",
+        addItem: "Add item",
+        editable: "editable",
+        itemTitle: "Title (PT)",
+        itemTitleEN: "Title (EN)",
+        itemDescPT: "Description (PT)",
+        itemDescEN: "Description (EN)",
+        category: "Category",
+        add: "Add",
+        addHint: "Tip: you can edit and delete any item. Everything is saved in your browser (localStorage).",
+        deviceSafety: "Device & Safety",
+        fieldReady: "field-ready",
+        goldenRulesTitle: "Golden Rules",
+        gr1: "Always keep the analyzer horizontal and with the (Tiger) symbol facing up.",
+        gr2: "Never use under direct sun. Always in shade (umbrella) with ventilation.",
+        gr3: "Always use foam/polystyrene to reduce vibration.",
+        gr4: "Never allow water in (including condensation). Never allow dust in.",
+        gr5: "Before powering on, keep tubes in a safe position: the pump will suck anything in. Prefer connecting to the chamber before turning the device on.",
+        gr6: "Never cut/shorten tubing. Measure and record length.",
+        gr7: "Special inlet/outlet fittings: handle with extreme care (no spare parts).",
+        deviceInfo: "Device information",
+        fillIn: "fill in",
+        model: "Model",
+        serial: "Serial",
+        ip: "IP",
+        firmware: "Firmware",
+        deviceHint: "This helps troubleshooting and standardizing campaigns.",
+        tubesTitle: "Tubes: INLET vs OUTLET (critical)",
+        tubes1: "Clearly identify which tube is INLET and which is OUTLET (labels/colors).",
+        tubes2: "Never allow water/condensation to return into the inlet. Use traps/safe routing and protect the inlet at all times.",
+        tubes3: "Tube ends must be clean, straight and well-defined (no burrs), for perfect sealing and to avoid leaks/air intake.",
+        tubes4: "Never leave tube ends on the ground/dust. Use caps when not in use.",
+        powerTitle: "Power & Fuses (inverter / analyzer)",
+        power1: "Red = positive (+) | Black = negative (–).",
+        power2: "When disconnecting: remove black (negative) first, then red.",
+        power3: "If the inverter fails, you may need to replace the inverter fuse.",
+        power4: "If the Los Gatos won’t power on, it may require replacing the device fuse (standard procedure/service).",
+        power5: "Do not pull/unplug the external charger abruptly. Avoid tension, looseness and poor contact.",
+        climateTitle: "Extreme climate (tropical/temperate)",
+        monitorAlways: "monitor always",
+        cl1: "High heat: shade + ventilation + avoid overheating.",
+        cl2: "Low temperatures: prevent internal condensation, protect connections, keep tubing dry.",
+        cl3: "Humidity: ideal < 30,000; 40k–50k risky; > 50k do not measure.",
+        footer: "Made for field use • Saves in browser • Export/Import JSON • Great for GitHub Pages",
+        editItem: "Edit item",
+        checked: "Checked",
+        yes: "Yes",
+        no: "No",
+        cancel: "Cancel",
+        save: "Save",
+        catPrep: "Preparation",
+        catSetup: "Setup",
+        catTubes: "Tubes & Connections",
+        catPower: "Power",
+        catClimate: "Climate",
+        catOperation: "Operation",
+        catShutdown: "Shutdown",
+        catEmergency: "Emergency",
+        secTitles: {
+          prep: "1) Preparation — Before Leaving",
+          setup: "2) Setup — Installation",
+          tubes: "3) Tubes & Connections",
+          power: "4) Power",
+          climate: "5) Climate",
+          operation: "6) Operation — During",
+          shutdown: "7) Shutdown",
+          emergency: "8) Emergency"
+        }
+      }
+    };
+
+    // ---------------------------
+    // Default checklist (editable)
+    // ---------------------------
+    const DEFAULT_ITEMS = [
+      // PREP
+      {id: uid(), cat:"prep", checked:false,
+        pt:{t:"Baterias 100% (carro/inversor/analisador)", d:"Leve bateria de carro e confirme carga completa."},
+        en:{t:"Batteries 100% (car/inverter/analyzer)", d:"Bring car battery and confirm full charge."}},
+      {id: uid(), cat:"prep", checked:false,
+        pt:{t:"Inversor testado + fusível reserva (se houver)", d:"Se algo acontecer, pode precisar trocar fusível do inversor."},
+        en:{t:"Inverter tested + spare fuse (if available)", d:"If something happens, you may need to replace inverter fuse."}},
+      {id: uid(), cat:"prep", checked:false,
+        pt:{t:"Guarda-sol + ventilação planejada", d:"Nunca usar no sol direto. Evitar overheating."},
+        en:{t:"Umbrella/shade + airflow planned", d:"Never under direct sun. Prevent overheating."}},
+      {id: uid(), cat:"prep", checked:false,
+        pt:{t:"Isopor/foam para vibração/trepidação", d:"Sempre apoiar em base estável com proteção."},
+        en:{t:"Foam/polystyrene for vibration", d:"Always place on stable base with vibration damping."}},
+      {id: uid(), cat:"prep", checked:false,
+        pt:{t:"Backup (USB/HD) + registro de campanha", d:"Salvar dados e anotar operador/local/projeto."},
+        en:{t:"Backup (USB/drive) + campaign log", d:"Save data and log operator/site/project."}},
+
+      // SETUP
+      {id: uid(), cat:"setup", checked:false,
+        pt:{t:"Analisador sempre DEITADO (Tiger ↑)", d:"Nunca deixar em pé. Símbolo Tiger para cima."},
+        en:{t:"Analyzer always HORIZONTAL (Tiger ↑)", d:"Never vertical. Tiger symbol up."}},
+      {id: uid(), cat:"setup", checked:false,
+        pt:{t:"Somente na sombra (nunca no sol)", d:"Use guarda-sol. Evite aquecimento."},
+        en:{t:"Shade only (never direct sun)", d:"Use umbrella/shade. Avoid overheating."}},
+      {id: uid(), cat:"setup", checked:false,
+        pt:{t:"Ventilação livre (sem abafamento)", d:"Deixe entradas de ar desobstruídas."},
+        en:{t:"Free ventilation (no blocking)", d:"Keep vents unobstructed."}},
+
+      // TUBES
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"INLET e OUTLET identificados (etiquetas)", d:"Evita erro de fluxo e risco de água/condensação entrar."},
+        en:{t:"INLET and OUTLET clearly labeled", d:"Prevents flow mistakes and water/condensation entry."}},
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"Pontas dos tubos bem definidas e RETAS", d:"Sem rebarba. Encaixe perfeito para não vazar."},
+        en:{t:"Tube ends clean, straight, well-defined", d:"No burrs. Perfect seal to avoid leaks."}},
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"Nunca deixar entrar água (nem condensação) e nem poeira", d:"Proteja pontas com tampas; evite contato com solo."},
+        en:{t:"Never allow water (incl. condensation) or dust in", d:"Cap ends; avoid ground contact."}},
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"Tubos em posição segura antes de ligar (bomba suga tudo)", d:"Ideal: tubos acoplados na câmara ANTES de ligar."},
+        en:{t:"Tubes secured before powering on (pump sucks everything)", d:"Best: connect tubes to chamber BEFORE turning on."}},
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"Cabos/fittings especiais do inlet/outlet (sem spare parts)", d:"Manusear com extremo cuidado para evitar vazamento."},
+        en:{t:"Special inlet/outlet fittings (no spare parts)", d:"Handle with extreme care to avoid leaks."}},
+      {id: uid(), cat:"tubes", checked:false,
+        pt:{t:"Medir e registrar comprimento dos tubos (NUNCA cortar)", d:"Nunca encurtar. Sem improviso."},
+        en:{t:"Measure & record tube length (NEVER cut)", d:"Never shorten. No improvisation."}},
+
+      // POWER
+      {id: uid(), cat:"power", checked:false,
+        pt:{t:"Polaridade confirmada: Vermelho (+) / Preto (–)", d:"Nunca inverter polos."},
+        en:{t:"Polarity confirmed: Red (+) / Black (–)", d:"Never swap poles."}},
+      {id: uid(), cat:"power", checked:false,
+        pt:{t:"Para desconectar: retirar primeiro o PRETO", d:"Depois retirar o vermelho."},
+        en:{t:"Disconnect order: remove BLACK first", d:"Then remove red."}},
+      {id: uid(), cat:"power", checked:false,
+        pt:{t:"Não puxar/tirar plugue do carregador externo", d:"Evite tração, folga e mau contato."},
+        en:{t:"Do not pull/unplug external charger plug", d:"Avoid tension, looseness and bad contact."}},
+      {id: uid(), cat:"power", checked:false,
+        pt:{t:"Se não ligar: checar fusível (inversor / Los Gatos)", d:"Trocar fusível do inversor se necessário; do equipamento conforme procedimento."},
+        en:{t:"If it won’t power on: check fuses (inverter / Los Gatos)", d:"Replace inverter fuse if needed; device fuse per procedure."}},
+
+      // CLIMATE
+      {id: uid(), cat:"climate", checked:false,
+        pt:{t:"Controle de calor (overheating)", d:"Sombra + ventilação. Evitar superfícies quentes."},
+        en:{t:"Heat control (overheating)", d:"Shade + airflow. Avoid hot surfaces."}},
+      {id: uid(), cat:"climate", checked:false,
+        pt:{t:"Controle de frio (condensação)", d:"Evitar choque térmico; manter tubos secos."},
+        en:{t:"Cold control (condensation)", d:"Avoid thermal shock; keep tubing dry."}},
+      {id: uid(), cat:"climate", checked:false,
+        pt:{t:"Umidade dentro do limite", d:"Ideal <30k; 40–50k risco; >50k não medir."},
+        en:{t:"Humidity within limits", d:"Ideal <30k;; 40–50k risk; >50k do not measure."}},
+
+      // OPERATION
+      {id: uid(), cat:"operation", checked:false,
+        pt:{t:"Monitorar dados em tempo real", d:"Verificar estabilidade de fluxo, vazamentos e leituras."},
+        en:{t:"Monitor data in real-time", d:"Check stable flow, leaks and readings."}},
+      {id: uid(), cat:"operation", checked:false,
+        pt:{t:"Proteger tubulação contra tração/pisoteio", d:"Nada pode puxar o inlet/outlet. Sem dobras."},
+        en:{t:"Protect tubing from pulling/stepping", d:"Nothing should tug inlet/outlet. No bends."}},
+
+      // SHUTDOWN
+      {id: uid(), cat:"shutdown", checked:false,
+        pt:{t:"Desligar em Safety Mode + Shutdown do sistema", d:"Nunca desligar direto no botão."},
+        en:{t:"Use Safety Mode + system shutdown", d:"Never power off via button."}},
+      {id: uid(), cat:"shutdown", checked:false,
+        pt:{t:"Backup feito antes de desmontar", d:"Copiar para USB/HD e confirmar arquivo."},
+        en:{t:"Backup done before dismantling", d:"Copy to drive and confirm file."}},
+
+      // EMERGENCY
+      {id: uid(), cat:"emergency", checked:false,
+        pt:{t:"Se molhar: desconectar cabos da máquina primeiro", d:"NÃO desligar no botão. Secar e seguir protocolo."},
+        en:{t:"If wet: disconnect cables from device first", d:"Do NOT power off via button. Dry and follow protocol."}}
+    ];
+
+    const CATS = ["prep","setup","tubes","power","climate","operation","shutdown","emergency"];
+
+    // ---------------------------
+    // State persistence
+    // ---------------------------
+    const LS_KEY = "losgatos_checklist_v1";
+    let state = loadState();
+
+    function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return freshState();
+        const parsed = JSON.parse(raw);
+        // Basic migration safety
+        if(!parsed.items || !Array.isArray(parsed.items)) return freshState();
+        return {
+          lang: parsed.lang || "pt",
+          meta: parsed.meta || {project:"",operator:"",site:"",model:"",serial:"",ip:"",firmware:""},
+          items: parsed.items
+        };
+      }catch(e){
+        return freshState();
+      }
+    }
+
+    function freshState(){
+      return {
+        lang: "pt",
+        meta: {project:"",operator:"",site:"",model:"",serial:"",ip:"",firmware:""},
+        items: structuredClone(DEFAULT_ITEMS)
+      };
+    }
+
+    function saveState(){
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    }
+
+    // ---------------------------
+    // Render
+    // ---------------------------
+    const elSections = document.getElementById("sections");
+    const elScore = document.getElementById("score");
+    const elBarFill = document.getElementById("barFill");
+    const elCountPill = document.getElementById("countPill");
+    const year = document.getElementById("year");
+    year.textContent = new Date().getFullYear();
+
+    function t(key){
+      const lang = state.lang;
+      const v = I18N[lang][key];
+      return v ?? key;
+    }
+
+    function applyI18n(){
+      document.documentElement.lang = state.lang === "pt" ? "pt-BR" : "en";
+      document.documentElement.dataset.lang = state.lang;
+
+      // Toggle buttons
+      document.getElementById("btnPT").classList.toggle("active", state.lang==="pt");
+      document.getElementById("btnEN").classList.toggle("active", state.lang==="en");
+
+      // Replace text nodes
+      document.querySelectorAll("[data-i18n]").forEach(node=>{
+        const key = node.getAttribute("data-i18n");
+        const val = t(key);
+        node.innerHTML = val;
+      });
+
+      // Update select option labels (already handled above by data-i18n)
+      // Update category select placeholder texts via re-render (safe)
+      render();
+    }
+
+    function render(){
+      // meta inputs
+      document.getElementById("project").value = state.meta.project || "";
+      document.getElementById("operator").value = state.meta.operator || "";
+      document.getElementById("site").value = state.meta.site || "";
+      document.getElementById("model").value = state.meta.model || "";
+      document.getElementById("serial").value = state.meta.serial || "";
+      document.getElementById("ip").value = state.meta.ip || "";
+      document.getElementById("firmware").value = state.meta.firmware || "";
+
+      // build sections
+      elSections.innerHTML = "";
+      for(const cat of CATS){
+        const items = state.items.filter(x=>x.cat===cat);
+        if(items.length===0) continue;
+
+        const sec = document.createElement("div");
+        sec.className = "section";
+        sec.innerHTML = `
+          <div class="shd">
+            <h3>${escapeHtml(I18N[state.lang].secTitles[cat] || cat)}</h3>
+            <span class="pill">${items.filter(i=>i.checked).length}/${items.length}</span>
+          </div>
+          <div class="sbd" id="sec_${cat}"></div>
+        `;
+        elSections.appendChild(sec);
+
+        const secBody = sec.querySelector("#sec_"+cat);
+        for(const it of items){
+          const title = state.lang==="pt" ? it.pt.t : it.en.t;
+          const desc  = state.lang==="pt" ? it.pt.d : it.en.d;
+          const row = document.createElement("div");
+          row.className = "row";
+          row.innerHTML = `
+            <input type="checkbox" ${it.checked ? "checked":""} aria-label="check">
+            <div class="itemtext">
+              <div class="name">${escapeHtml(title)}</div>
+              <div class="desc">${escapeHtml(desc || "")}</div>
+            </div>
+            <div class="actions">
+              <button class="iconbtn" type="button" title="Edit">✎</button>
+              <button class="iconbtn" type="button" title="Delete">🗑</button>
+            </div>
+          `;
+          // checkbox
+          row.querySelector('input[type="checkbox"]').addEventListener("change", (e)=>{
+            it.checked = e.target.checked;
+            saveState();
+            updateScore();
+            render(); // refresh counters pills per section
+          });
+
+          // edit
+          row.querySelectorAll(".iconbtn")[0].addEventListener("click", ()=>openEdit(it.id));
+          // delete
+          row.querySelectorAll(".iconbtn")[1].addEventListener("click", ()=>{
+            const msg = state.lang==="pt"
+              ? "Excluir este item?"
+              : "Delete this item?";
+            if(confirm(msg)){
+              state.items = state.items.filter(x=>x.id!==it.id);
+              saveState();
+              updateScore();
+              render();
+            }
+          });
+
+          secBody.appendChild(row);
+        }
+      }
+
+      updateScore();
+    }
+
+    function updateScore(){
+      const total = state.items.length;
+      const done  = state.items.filter(i=>i.checked).length;
+      const pct = total===0 ? 0 : Math.round((done/total)*100);
+      elScore.textContent = pct + "%";
+      elBarFill.style.width = pct + "%";
+      elCountPill.textContent = `${done}/${total}`;
+
+      // color cue (text only)
+      if(pct>=95) elScore.style.color = "var(--ok)";
+      else if(pct>=85) elScore.style.color = "var(--warn)";
+      else if(pct>=70) elScore.style.color = "var(--info)";
+      else elScore.style.color = "var(--bad)";
+    }
+
+    function escapeHtml(s){
+      return String(s ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[c]));
+    }
+
+    // ---------------------------
+    // Events: meta
+    // ---------------------------
+    ["project","operator","site","model","serial","ip","firmware"].forEach(id=>{
+      document.getElementById(id).addEventListener("input", (e)=>{
+        state.meta[id] = e.target.value;
+        saveState();
+      });
+    });
+
+    // Language toggle
+    document.getElementById("btnPT").addEventListener("click", ()=>{
+      state.lang="pt"; saveState(); applyI18n();
+    });
+    document.getElementById("btnEN").addEventListener("click", ()=>{
+      state.lang="en"; saveState(); applyI18n();
+    });
+
+    // Add item
+    document.getElementById("btnAdd").addEventListener("click", ()=>{
+      const tpt = document.getElementById("newTitlePT").value.trim();
+      const ten = document.getElementById("newTitleEN").value.trim();
+      const dpt = document.getElementById("newDescPT").value.trim();
+      const den = document.getElementById("newDescEN").value.trim();
+      const cat = document.getElementById("newCat").value;
+
+      if(!tpt && !ten){
+        alert(state.lang==="pt" ? "Informe pelo menos um título (PT ou EN)." : "Provide at least a title (PT or EN).");
+        return;
+      }
+
+      state.items.unshift({
+        id: uid(),
+        cat,
+        checked:false,
+        pt:{t: tpt || ten || "Novo item", d: dpt || ""},
+        en:{t: ten || tpt || "New item", d: den || ""}
+      });
+
+      // clear
+      document.getElementById("newTitlePT").value="";
+      document.getElementById("newTitleEN").value="";
+      document.getElementById("newDescPT").value="";
+      document.getElementById("newDescEN").value="";
+      document.getElementById("newCat").value=cat;
+
+      saveState();
+      render();
+    });
+
+    // Reset
+    document.getElementById("btnReset").addEventListener("click", ()=>{
+      const msg = state.lang==="pt"
+        ? "Isso vai limpar tudo (itens, marcações e infos) neste navegador. Continuar?"
+        : "This will clear everything (items, checks and info) in this browser. Continue?";
+      if(confirm(msg)){
+        state = freshState();
+        saveState();
+        applyI18n();
+      }
+    });
+
+    // Export
+    document.getElementById("btnExport").addEventListener("click", ()=>{
+      const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+      const a = document.createElement("a");
+      const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+      a.href = URL.createObjectURL(blob);
+      a.download = `losgatos-checklist-${stamp}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 1200);
+    });
+
+    // Import
+    const fileInput = document.getElementById("fileImport");
+    document.getElementById("btnImport").addEventListener("click", ()=> fileInput.click());
+    fileInput.addEventListener("change", async ()=>{
+      const f = fileInput.files?.[0];
+      fileInput.value="";
+      if(!f) return;
+      try{
+        const txt = await f.text();
+        const imported = JSON.parse(txt);
+        // minimal validation
+        if(!imported || !Array.isArray(imported.items)) throw new Error("bad");
+        // keep language if present
+        state = {
+          lang: imported.lang === "en" ? "en" : "pt",
+          meta: imported.meta || {project:"",operator:"",site:"",model:"",serial:"",ip:"",firmware:""},
+          items: imported.items
+        };
+        saveState();
+        applyI18n();
+      }catch(e){
+        alert(state.lang==="pt" ? "Arquivo inválido." : "Invalid file.");
+      }
+    });
+
+    // ---------------------------
+    // Edit dialog
+    // ---------------------------
+    const dlg = document.getElementById("dlgEdit");
+    const btnCloseEdit = document.getElementById("btnCloseEdit");
+    const btnCancelEdit = document.getElementById("btnCancelEdit");
+    const btnSaveEdit = document.getElementById("btnSaveEdit");
+    let editId = null;
+
+    function openEdit(id){
+      const it = state.items.find(x=>x.id===id);
+      if(!it) return;
+      editId = id;
+
+      document.getElementById("editTitlePT").value = it.pt.t || "";
+      document.getElementById("editTitleEN").value = it.en.t || "";
+      document.getElementById("editDescPT").value  = it.pt.d || "";
+      document.getElementById("editDescEN").value  = it.en.d || "";
+      document.getElementById("editCat").value     = it.cat;
+      document.getElementById("editChecked").value = String(!!it.checked);
+
+      dlg.showModal();
+    }
+
+    function closeEdit(){
+      editId = null;
+      dlg.close();
+    }
+
+    btnCloseEdit.addEventListener("click", closeEdit);
+    btnCancelEdit.addEventListener("click", closeEdit);
+
+    btnSaveEdit.addEventListener("click", ()=>{
+      const it = state.items.find(x=>x.id===editId);
+      if(!it) return closeEdit();
+
+      it.pt.t = document.getElementById("editTitlePT").value.trim() || it.pt.t;
+      it.en.t = document.getElementById("editTitleEN").value.trim() || it.en.t;
+
+      it.pt.d = document.getElementById("editDescPT").value.trim();
+      it.en.d = document.getElementById("editDescEN").value.trim();
+
+      it.cat  = document.getElementById("editCat").value;
+      it.checked = document.getElementById("editChecked").value === "true";
+
+      saveState();
+      render();
+      closeEdit();
+    });
+
+    // close with ESC (default), and click outside
+    dlg.addEventListener("click", (e)=>{
+      const rect = dlg.getBoundingClientRect();
+      const inside = rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+      if(!inside) closeEdit();
+    });
+
+    // ---------------------------
+    // Init
+    // ---------------------------
+    applyI18n();
+    render();
+  </script>
+</body>
+</html>
